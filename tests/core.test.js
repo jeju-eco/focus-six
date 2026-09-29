@@ -1,0 +1,4 @@
+const test=require('node:test');const assert=require('node:assert/strict');const Core=require('../core.js');
+test('one target in every round with varied position',()=>{for(let i=0;i<100;i++){let r=Core.createRound(()=>i/100);assert.equal(r.cells.length,25);assert.equal(r.cells.filter(x=>x===r.target).length,1);assert.equal(r.cells[r.answer],r.target)}assert.notEqual(Core.createRound(()=>0).answer,Core.createRound(()=>.9).answer)});
+test('remaining time stops precisely at 120s',()=>{assert.equal(Core.remaining(1000,1000),120);assert.equal(Core.remaining(1000,120999),1);assert.equal(Core.remaining(1000,121000),0);assert.equal(Core.remaining(1000,200000),0)});
+test('accuracy rounded and zero safely displayed',()=>{assert.equal(Core.score(0,0),0);assert.equal(Core.score(2,1),67);assert.equal(Core.score(1,3),25)});
